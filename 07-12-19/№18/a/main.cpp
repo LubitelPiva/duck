@@ -8,6 +8,28 @@ int main()
     int x;
     string a, b;
     cin>>x;
+    if ((x > 9)and(x < 20)){
+        if (x%10==0) a = "äåñÿòü";
+    else if (x%10==1) a = "îäèíàäöàòü";
+    else if (x%10==2) a = "äâåíàäöàòü";
+    else if (x%10==3) a = "òğåíàäöàòü";
+    else if (x%10==4) a = "÷åòûğíàäöàòü";
+    else if (x%10==5) a = "ïÿòíàäöàòü";
+    else if (x%10==6) a = "øåñòíàäöàòü";
+    else if (x%10==7) a = "ñåìüíàäöàòü";
+    else if (x%10==8) a = "âîñåìüíàäöàòü";
+    else if (x%10==9) a = "äåâÿòíàäöàòü";
+    }
+    else {
+    if (x/10==0) b = "";
+    else if (x/10==2) b = "äâàäöàòü";
+    else if (x/10==3) b = "òğèäöàòü";
+    else if (x/10==4) b = "ñîğîê";
+    else if (x/10==5) b = "ïåòäåñÿò";
+    else if (x/10==6) b = "øåñäåñÿò";
+    else if (x/10==7) b = "ñåìüäåñÿò";
+    else if (x/10==8) b = "âîñåìüäåñÿò";
+    else if (x/10==9) b = "äåâÿíîñòà";
     if (x%10==0) a = "";
     else if (x%10==1) a = "îäèí";
     else if (x%10==2) a = "äâà";
@@ -18,23 +40,7 @@ int main()
     else if (x%10==7) a = "ñåìü";
     else if (x%10==8) a = "âîñåìü";
     else if (x%10==9) a = "äåâÿòü";
-    else if (x/10==0) b = "";
-    else if (x/10==2) b = "äâàäöàòü";
-    else if (x/10==3) b = "òğèäöàòü";
-    else if (x/10==4) b = "ñîğîê";
-    else if (x/10==5) b = "ïåòäåñÿò";
-    else if (x/10==6) b = "øåñòü";
-    else if (x/10==7) b = "ñåìü";
-    else if (x/10==8) b = "âîñåìü";
-    else if (x/10==9) b = "äåâÿòü";
-    else if (x/10==0) b = "";
-    else if (x/10==1) b = "îäèí";
-    else if (x/10==2) b = "äâà";
-    else if (x/10==3) b = "òğè";
-    else if (x/10==4) b = "÷åòûğè";
-    else if (x/10==5) b = "ïÿòü";
-    else if (x/10==6) b = "øåñòü";
-    else if (x/10==7) b = "ñåìü";
-    else if (x/10==8) b = "âîñåìü";
-    else if (x/10==9) b = "äåâÿòü";
+    }
+    if (x < 10) cout<< a;
+    else cout<< b << " " << a;
 }
