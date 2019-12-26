@@ -2,7 +2,20 @@
 #include "TXLib.h"
 #include <cmath>
 using namespace std;
+vector <Bullet> bullet;
 int x_m = 350, y_m = 350, h = 30, l = 20, x_s = 50, y_s = 50, N = 0, n = 1;
+void Draw_Bullet(int x, y)
+{
+	txCircle(x, y, 5);
+}
+class Bullet() 
+{
+	int x; int y; int turn;
+	Bullet(int a; int b; int c) : x(a), y(b), turn(c)
+	{
+		Draw_Bullet(x, y);
+	}
+}
 void Draw_main_person()
 {
 	txSetColor(TX_BLACK);
@@ -34,6 +47,10 @@ void Control_stalker_person()
     if (y_s - y_m < 0) y_s += 5;
     else if (y_s - y_m > 0) y_s -= 5;
 }
+void Control_Bullet()
+{
+	if (N != bullet.lenght) bullet.push_back(Bullet(x_m, y_m, n));
+}
 int main()
 {
 	txCreateWindow(700, 700);
@@ -45,6 +62,7 @@ int main()
 		Control_main_person();
 		Draw_stalker_person();
 		Control_stalker_person();
+
 		Sleep(50);
 		if (GetAsyncKeyState(VK_ESCAPE)) break;
 	}
