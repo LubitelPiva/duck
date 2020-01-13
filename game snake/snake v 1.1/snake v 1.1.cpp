@@ -1,35 +1,7 @@
 ﻿#include <iostream>
 #include "TXLib.h"
-/*using namespace std;
-
-class snake
-{
-private:
-	int x;
-	int y;
-
-public:
-	snake(int y, int x) { this->x = x; this->y = y; };
-	int SetY();
-	int SetX();
-	int GetX();
-	int GetY();
-};
-
-int snake::GetX() {
-	return x;
-}
-
-int main()
-{
-	int x;
-	int y;
-	cin >> x >> y;
-	snake a(x, y);
-	cout << a.GetX();
-}*/
 using namespace std;
-int N = 1; 
+int N = 2;
 class snake
 {
 public:
@@ -48,6 +20,14 @@ public:
 		txSetFillColor(RGB(0, 255, 0));
 		txRectangle(x - 20, y - 20, x + 20, y + 20);
 	}
+	void print_squb_heat()
+	{
+		txSetFillColor(RGB(0, 255, 0));
+		txRectangle(x - 20, y - 20, x + 20, y + 20);
+		txSetFillColor(RGB(0, 0, 0));
+		txRectangle(x - 10, y - 10, x - 2, y - 2);
+		txRectangle(x + 2, y - 10, x + 10, y - 2);
+	}
 	void Control_snake()
 	{
 		if (GetAsyncKeyState(VK_UP)) y -= 40;
@@ -56,21 +36,21 @@ public:
 		else if (GetAsyncKeyState(VK_LEFT)) x -= 40;
 		while (GetAsyncKeyState(VK_UP) || GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState(VK_LEFT)) {}
 	}
-	void SetX (int Setx)
+	void SetX(int Setx)
 	{
-	    x = Setx;
+		x = Setx;
 	}
-	void SetY (int Sety)
+	void SetY(int Sety)
 	{
-	    y = Sety;
+		y = Sety;
 	}
-	int GetX ()
+	int GetX()
 	{
-	    return x;
+		return x;
 	}
-	int GetY ()
+	int GetY()
 	{
-	    return y;
+		return y;
 	}
 private:
 	int x = 0;
@@ -88,12 +68,18 @@ void XY_apple(int& x_apple, int& y_apple, int& win_l, int& win_h)
 }
 int main()
 {
-	int win_h = 600, win_l = 600, x = 360, y = 360, x_apple = 0, y_apple = 0, pixe = 0, wile = 0;
+	int win_h = 600, win_l = 600, x = 360, y = 360, x_apple = 0, y_apple = 0, pixe = 0, wile = 0, end = 0;
 
 	while (!GetAsyncKeyState(VK_RETURN)) {}
 
 	txCreateWindow(win_h, win_l);
 	snake All[226];
+	All[0].SetY(300);
+	All[0].SetX(300);
+	All[1].SetY(340);
+	All[1].SetX(300);
+	All[225].SetY(300);
+	All[225].SetX(300);
 	XY_apple(x_apple, y_apple, win_l, win_h);
 
 	while (true)
@@ -101,12 +87,12 @@ int main()
 		if (GetAsyncKeyState(VK_ESCAPE)) break;
 		txSetFillColor(RGB(255, 255, 255));
 		txClear();
-
-		for (int i = 0; i < N; i++)
+		All[0].print_squb_heat();
+		for (int i = 1; i < N; i++)
 		{
 			All[i].print_squb();
 		}
-		
+
 		print_apple(x_apple, y_apple);
 		if (GetAsyncKeyState(VK_UP) || GetAsyncKeyState(VK_RIGHT) || GetAsyncKeyState(VK_DOWN) || GetAsyncKeyState(VK_LEFT))
 		{
@@ -120,7 +106,7 @@ int main()
 				while (wile == 0)
 				{
 					pixe = 0;
-					
+
 					for (int i = 0; i < N; i++)
 					{
 						if (All[i].GetX() == x_apple && All[i].GetY() == y_apple)
@@ -134,7 +120,7 @@ int main()
 				}
 
 			}
-			
+
 			for (int i = 1; i < N; i++)
 			{
 				All[N - i].SetX(All[N - i - 1].GetX());
@@ -144,6 +130,18 @@ int main()
 			All[0].SetX(All[225].GetX());
 			All[0].SetY(All[225].GetY());
 		}
+
+		for (int i = 1; i < N; i++)
+		{
+			if (All[i].GetX() == All[0].GetX() && All[i].GetY() == All[0].GetY())
+			{
+				end = 1;
+				break;
+				cout << end;
+			}
+		}
+
+		if (All[0].GetY() < 0 || All[0].GetY() > win_h || All[0].GetX() < 0 || All[0].GetX() > win_l || end == 1) break;
 		Sleep(50);
 	}
 }
