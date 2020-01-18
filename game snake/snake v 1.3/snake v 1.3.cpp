@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include "TXLib.h"
+#include <string>
 using namespace std;
 int N = 2, a = 50;
 class snake
@@ -17,13 +18,16 @@ public:
 	}
 	void print_squb()
 	{
+	    txSetColor(TX_BLACK, 1);
 		txSetFillColor(RGB(0, 255, 0));
 		txRectangle(x - a / 2, y - a / 2, x + a / 2, y + a / 2);
 	}
 	void print_squb_heat(int turn)
 	{
+	    txSetColor(TX_BLACK, 1);
 		txSetFillColor(RGB(0, 255, 0));
 		txRectangle(x - a / 2, y - a / 2, x + a / 2, y + a / 2);
+		txSetColor(TX_WHITE, 2);
 		txSetFillColor(RGB(0, 0, 0));
 		if (turn == 2 || turn == 3) txRectangle(x - 10, y - 10, x - 2, y - 2);
 		if (turn == 3 || turn == 4) txRectangle(x + 2, y - 10, x + 10, y - 2);
@@ -52,6 +56,7 @@ private:
 };
 void print_apple(int x, int y)
 {
+    txSetColor(TX_BLACK, 1);
 	txSetFillColor(RGB(255, 0, 0));
 	txRectangle(x - 10, y - 10, x + 10, y + 10);
 }
@@ -60,21 +65,21 @@ void XY_apple(int& x_apple, int& y_apple, int win_l, int win_h)
 	x_apple = (rand() % win_l) * a + a / 2;
 	y_apple = (rand() % win_h) * a + a / 2;
 }
-void heat_snake_control(int& turn)
+void heat_snake_control(int& turn, int old_turn)
 {
-	if (GetAsyncKeyState(VK_UP))
+	if (GetAsyncKeyState(VK_UP) and old_turn != 3)
 	{
 		turn = 1;
 	}
-	else if (GetAsyncKeyState(VK_RIGHT))
+	else if (GetAsyncKeyState(VK_RIGHT) and old_turn != 4)
 	{
 		turn = 2;
 	}
-	else if (GetAsyncKeyState(VK_DOWN))
+	else if (GetAsyncKeyState(VK_DOWN) and old_turn != 1)
 	{
 		turn = 3;
 	}
-	else if (GetAsyncKeyState(VK_LEFT))
+	else if (GetAsyncKeyState(VK_LEFT)  and old_turn != 2)
 	{
 		turn = 4;
 	}
@@ -88,9 +93,10 @@ void Control_snake(int& turn, int& x, int& y)
 }
 int main()
 {
-	int x = 275, y = 325, x_apple = 0, y_apple = 0, pixe = 0, wile = 0, end = 0, turn = 1, time = 1, speed, start_speed;
+	int x = 275, y = 325, x_apple = 0, y_apple = 0, pixe = 0, wile = 0, end = 0, turn = 1, time = 1, speed, start_speed, old_turn = 1;
 	const int win_h = 15, win_l = 15;
 	int world[win_h][win_l];
+	string score;
 	cout << "set a speed for snake and press Enter" << endl;
 	cout << "recomend speed 15" << endl;
 	cin >> start_speed;
@@ -141,10 +147,14 @@ int main()
 		{
 			All_snake[i].print_squb();
 		}
-		heat_snake_control(turn);//задание стороны поворота
+		txSetColour(TX_BLACK,3);
+		score = to_string(N - 2);
+		txTextOut(5, 5, score.c_str);
+		heat_snake_control(turn, old_turn);//задание стороны поворота
 		print_apple(x_apple, y_apple);//отрисовка яблока
 		if (time % speed == 0)
 		{
+		    old_turn = turn;
 			Control_snake(turn, x, y);
 			if (world[(x - a / 2) / a][(y - a / 2) / a] == 2)//если наступили на яблоко, создать новое
 			{
