@@ -1,4 +1,4 @@
-ï»¿#include <iostream>
+#include <iostream>
 #include "TXLib.h"
 #include <string>
 #include <sstream>
@@ -66,9 +66,9 @@ void XY_apple(int& x_apple, int& y_apple, int win_l, int win_h)
 	x_apple = (rand() % win_l) * a + a / 2;
 	y_apple = (rand() % win_h) * a + a / 2;
 }
-void heat_snake_control(int& turn, int old_turn)
+void heat_snake_control(int& turn, int old_turn, int speed, int time)
 {
-	if (GetAsyncKeyState(VK_UP) and old_turn != 3)
+	/*if (GetAsyncKeyState(VK_UP) and old_turn != 3)
 	{
 		turn = 1;
 	}
@@ -83,6 +83,22 @@ void heat_snake_control(int& turn, int old_turn)
 	else if (GetAsyncKeyState(VK_LEFT)  and old_turn != 2)
 	{
 		turn = 4;
+	}*/
+	if (GetAsyncKeyState(VK_UP) and old_turn != 3)
+	{
+		turn = 1;
+	}
+	else if (time % (speed * 15) == speed - 1)
+	{
+		turn = 3;
+	}
+	else if (time % speed == 1)
+	{
+		turn = 2;
+	}
+	else if (GetAsyncKeyState(VK_LEFT)  and old_turn != 2)
+	{
+		turn = 4;
 	}
 }
 void Control_snake(int& turn, int& x, int& y, int win_h, int win_l)
@@ -91,10 +107,11 @@ void Control_snake(int& turn, int& x, int& y, int win_h, int win_l)
 	else if (turn == 2) x += a;
 	else if (turn == 3) y += a;
 	else if (turn == 4) x -= a;
-	/*if ( x > win_l * a) x = a / 2;
-	if ( x < win_l * a) x = win_l * a - a / 2;
+	if ( x > win_l * a) x = a / 2;
+	if ( x < 0) x = win_l * a - a / 2;
+	//cout << x << endl;
 	if ( y > win_h * a) y = a / 2;
-	if ( y < win_h * a) y = win_h * a - a / 2;*/
+	else if ( y < 0) y = win_h * a - a / 2;
 }
 int main()
 {
@@ -106,7 +123,7 @@ int main()
 	cin >> start_speed;
 	char *p_str = 0;
 
-	for (int i = 0; i < win_l; i++) // ÑÐ¾Ð·Ð´Ð°Ð½Ð¸Ðµ Ð¼Ð°ÑÑÐ¸Ð²Ð° Ð¼Ð¸Ñ€Ð°
+	for (int i = 0; i < win_l; i++) // ñîçäàíèå ìàññèâà ìèðà
 	{
 		for (int k = 0; k < win_h; k++)
 		{
@@ -114,8 +131,8 @@ int main()
 		}
 	}
 	txCreateWindow(win_l * a, win_h * a);
-	snake All_snake[win_l * win_h + 1];//Ð¼Ð°ÑÑÐ¸Ð² Ð·Ð¼ÐµÐ¸
-	for (int i = 0; i < N; i++)//Ð·Ð°Ð´Ð°Ð½Ð¸Ðµ Ð½Ð°Ñ‡Ð°Ð»ÑŒÐ½Ñ‹Ñ… ÐºÐ¾Ð¾Ñ€Ð´Ð¸Ñ‚Ð°Ð½
+	snake All_snake[win_l * win_h + 1];//ìàññèâ çìåè
+	for (int i = 0; i < N; i++)//çàäàíèå íà÷àëüíûõ êîîðäèòàí
 	{
 		All_snake[i].SetY(325 + i * a);
 		All_snake[i].SetX(275);
@@ -126,7 +143,7 @@ int main()
 	XY_apple(x_apple, y_apple, win_l, win_h);
 	wile = 0;
 
-	while (wile == 0)//Ð¿Ñ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð½Ðµ Ð¿Ð¾ÑÐ²Ð¸Ð»Ð¾ÑÑŒ Ð»Ð¸ ÑÐ±Ð»Ð¾ÐºÐ¾ Ð² Ð·Ð¼ÐµÐµ
+	while (wile == 0)//ïðîâåðêà íå ïîÿâèëîñü ëè ÿáëîêî â çìåå
 	{
 		pixe = 0;
 		if (world[(x_apple - a / 2) / a][(y_apple - a / 2) / a] == 1)
@@ -144,21 +161,21 @@ int main()
 	{
 		end = 0;
 		speed = start_speed - int(N / 10);
-		if (GetAsyncKeyState(VK_ESCAPE)) break;// Ð²Ñ‹Ñ…Ð¾Ð´ Ð¿Ð¾ escape
+		if (GetAsyncKeyState(VK_ESCAPE)) break;// âûõîä ïî escape
 		txSetFillColor(RGB(255, 255, 255));
 		txClear();
-		All_snake[0].print_squb_heat(turn);//Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ° Ð³Ð¾Ð»Ð¾Ð²Ñ‹
-		for (int i = 1; i < N; i++)//Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ° Ñ‚ÐµÐ»Ð°
+		All_snake[0].print_squb_heat(turn);//îòðèñîâêà ãîëîâû
+		for (int i = 1; i < N; i++)//îòðèñîâêà òåëà
 		{
 			All_snake[i].print_squb();
 		}
-		heat_snake_control(turn, old_turn);//Ð·Ð°Ð´Ð°Ð½Ð¸Ðµ ÑÑ‚Ð¾Ñ€Ð¾Ð½Ñ‹ Ð¿Ð¾Ð²Ð¾Ñ€Ð¾Ñ‚Ð°
-		print_apple(x_apple, y_apple);//Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ° ÑÐ±Ð»Ð¾ÐºÐ°
+		heat_snake_control(turn, old_turn, speed, time);//çàäàíèå ñòîðîíû ïîâîðîòà
+		print_apple(x_apple, y_apple);//îòðèñîâêà ÿáëîêà
 		if (time % speed == 0)
 		{
 		    old_turn = turn;
 			Control_snake(turn, x, y, win_h, win_l);
-			if (world[(x - a / 2) / a][(y - a / 2) / a] == 2)//ÐµÑÐ»Ð¸ Ð½Ð°ÑÑ‚ÑƒÐ¿Ð¸Ð»Ð¸ Ð½Ð° ÑÐ±Ð»Ð¾ÐºÐ¾, ÑÐ¾Ð·Ð´Ð°Ñ‚ÑŒ Ð½Ð¾Ð²Ð¾Ðµ
+			if (world[(x - a / 2) / a][(y - a / 2) / a] == 2)//åñëè íàñòóïèëè íà ÿáëîêî, ñîçäàòü íîâîå
 			{
 				world[(x - a / 2) / a][(y - a / 2) / a] = 1;
 				N += 1;
@@ -183,11 +200,11 @@ int main()
 			}
 			else
 			{
-				world[(All_snake[N - 1].GetX() - a / 2) / a][(All_snake[N - 1].GetY() - a / 2) / a] = 0;//Ð¸Ð·Ð¼ÐµÐ½ÐµÐ½Ð¸Ñ Ñ‚Ð¾Ñ‡ÐµÐº Ð·Ð¼ÐµÐ¹ÐºÐ¸
-				if (world[(x - a / 2) / a][(y - a / 2) / a] == 1) end = 1;//ÐµÑÐ»Ð¸ Ð·Ð°ÑˆÐ»Ð° Ð² ÑÐµÐ±Ñ
+				world[(All_snake[N - 1].GetX() - a / 2) / a][(All_snake[N - 1].GetY() - a / 2) / a] = 0;//èçìåíåíèÿ òî÷åê çìåéêè
+				if (world[(x - a / 2) / a][(y - a / 2) / a] == 1) end = 1;//åñëè çàøëà â ñåáÿ
 				world[(x - a / 2) / a][(y - a / 2) / a] = 1;
 			}
-			for (int i = 1; i < N; i++)//ÑÐ´Ð²Ð¸Ð³ Ð²ÑÐµÑ… Ñ‡Ð°ÑÑ‚ÐµÐ¹ Ð·Ð¼ÐµÐ¸
+			for (int i = 1; i < N; i++)//ñäâèã âñåõ ÷àñòåé çìåè
 			{
 				All_snake[N - i].SetX(All_snake[N - i - 1].GetX());
 				All_snake[N - i].SetY(All_snake[N - i - 1].GetY());
@@ -197,8 +214,8 @@ int main()
 			All_snake[0].SetY(y);
 		}
 
-		if (All_snake[0].GetY() < 0 || All_snake[0].GetY() > win_h * a || All_snake[0].GetX() < 0 || All_snake[0].GetX() > win_l * a || end == 1) break;
-		Sleep(30);
+		if (end == 1) break;
+		Sleep(10);
 		time++;
 	}
 	cout << "DEAD";

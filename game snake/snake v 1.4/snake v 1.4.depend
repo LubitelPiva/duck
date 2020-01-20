@@ -1,0 +1,36 @@
+# depslib dependency file v1.0
+1579515705 source:c:\users\public\documents\duck\game snake\snake v 1.4\main.cpp
+	<iostream>
+	"TXLib.h"
+	<string>
+	<sstream>
+
+1577364262 c:\users\public\documents\duck\game snake\snake v 1.4\txlib.h
+	<assert.h>
+	<stdlib.h>
+	<stdarg.h>
+	<stdio.h>
+	<string.h>
+	<io.h>
+	<fcntl.h>
+	<direct.h>
+	<process.h>
+	<signal.h>
+	<locale.h>
+	<time.h>
+	<float.h>
+	<math.h>
+	<map>
+	<vector>
+	<string>
+	<iostream>
+	<algorithm>
+	<exception>
+	<stdexcept>
+	<conio.h>
+	<windows.h>
+	<tlhelp32.h>
+	<shellapi.h>
+	<shlobj.h>
+	<crtdbg.h>
+
