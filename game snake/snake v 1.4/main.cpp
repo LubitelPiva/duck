@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 using namespace std;
-int N = 1, a = 50;
+int N = 10, a = 50;
 class snake
 {
 public:
@@ -68,7 +68,7 @@ void XY_apple(int& x_apple, int& y_apple, int win_l, int win_h)
 }
 void heat_snake_control(int& turn, int old_turn, int speed, int time)
 {
-	/*if (GetAsyncKeyState(VK_UP) and old_turn != 3)
+	if (GetAsyncKeyState(VK_UP) and old_turn != 3)
 	{
 		turn = 1;
 	}
@@ -83,22 +83,6 @@ void heat_snake_control(int& turn, int old_turn, int speed, int time)
 	else if (GetAsyncKeyState(VK_LEFT)  and old_turn != 2)
 	{
 		turn = 4;
-	}*/
-	if (GetAsyncKeyState(VK_UP) and old_turn != 3)
-	{
-		turn = 1;
-	}
-	else if (time % (speed * 15) == speed - 1)
-	{
-		turn = 3;
-	}
-	else if (time % speed == 1)
-	{
-		turn = 2;
-	}
-	else if (GetAsyncKeyState(VK_LEFT)  and old_turn != 2)
-	{
-		turn = 4;
 	}
 }
 void Control_snake(int& turn, int& x, int& y, int win_h, int win_l)
@@ -109,7 +93,6 @@ void Control_snake(int& turn, int& x, int& y, int win_h, int win_l)
 	else if (turn == 4) x -= a;
 	if ( x > win_l * a) x = a / 2;
 	if ( x < 0) x = win_l * a - a / 2;
-	//cout << x << endl;
 	if ( y > win_h * a) y = a / 2;
 	else if ( y < 0) y = win_h * a - a / 2;
 }
@@ -215,7 +198,7 @@ int main()
 		}
 
 		if (end == 1) break;
-		Sleep(10);
+		Sleep(30);
 		time++;
 	}
 	cout << "DEAD";
