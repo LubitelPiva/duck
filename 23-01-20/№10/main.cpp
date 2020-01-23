@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -11,12 +11,13 @@ int main()
 	while (text.find("  ") != string::npos) {
         text.erase(text.find(" "), 1);
 	}
-	/*for (int i = 0; i < text.size() - 1; i++)
+	for (int i = 0; i < text.size() - 1; i++)
 	{
 		if (text[i] + text[i + 1] == '  ')
 		{
 			text.erase(i);
 		}
-	}*/
+	}
 	cout << text;
 }
+

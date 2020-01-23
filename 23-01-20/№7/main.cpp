@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -13,7 +13,7 @@ int main()
     {
         if (text[i] == slash) start_name = i;
     }
-    for (int i = start_name ; i >= 0; i--)
+    for (int i = start_name + 1; i < text.size(); i++)
     {
         cout << text[i];
     }

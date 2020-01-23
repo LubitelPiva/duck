@@ -7,8 +7,10 @@ int main()
 {
     int start_name = 0;
     string text;
-    char slash = '\\';
+    string s('\\');
+    char slash = "a";
     cin >> text;
+    cout << s << "adad" << endl;
     cout << endl << slash;
     for (int i = 0; i < text.size(); i++)
     {

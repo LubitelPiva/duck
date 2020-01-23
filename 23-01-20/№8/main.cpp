@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 
 using namespace std;
@@ -13,8 +13,15 @@ int main()
     {
         if (text[i] == slash) start_name = i;
     }
-    for (int i = start_name ; i >= 0; i--)
+    if (start_name == 0)
     {
-        cout << text[i];
+        cout << "error";
+    }
+    else
+    {
+        for (int i = start_name ; i >= 0; i--)
+        {
+            cout << text[i];
+        }
     }
 }
