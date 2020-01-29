@@ -9,7 +9,7 @@ int main()
 	cin >> text;
 	cout << endl;
 	while (text.find("  ") != string::npos) {
-        text.erase(text.find(" "), 1);
+            text.erase(text.find(" "), 1);
 	}
 	/*for (int i = 0; i < text.size() - 1; i++)
 	{
