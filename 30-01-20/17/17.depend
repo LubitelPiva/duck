@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1580392378 source:c:\users\public\documents\duck\30-01-20\17\main.cpp
+	<iostream>
+	<string>
+	<cmath>
+
