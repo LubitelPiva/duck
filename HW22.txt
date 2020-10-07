@@ -1,0 +1,30 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int R[4] = { 0, 0, 0, 0 };
+
+void comand_1(int reg, int sours)
+{
+    R[reg] = sours;
+}
+
+void comand_1(int reg, int sours)
+{
+    R[reg] = R[sours];
+}
+
+int main()
+{
+    string a;
+    While ("true")
+    {
+        cin >> a;
+        if (a[0] == '0')
+            comand_1(a[1] - '0', a[2] - '0');
+        else
+            if (a[0] == '1')
+
+    }
+}
