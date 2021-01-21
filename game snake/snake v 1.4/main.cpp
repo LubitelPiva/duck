@@ -3,7 +3,7 @@
 #include <string>
 #include <sstream>
 using namespace std;
-int N = 10, a = 50;
+int N = 5, a = 50;
 class snake
 {
 public:
