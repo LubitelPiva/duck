@@ -108,15 +108,25 @@ vector <int> division_big_number(vector <int> a, vector <int> b)
     vector <int> n(1, 0);
     vector <int> d(1, 1);
     c.push_back(0);
-    while (comparison_big_number(a, math_big_number(n, '*', b)))
+    while (comparison_big_number(a, multiplication_big_number(n, b)))
     {
         //c = math_big_number(n, '*', b);
-        n = math_big_number(n, '+', d);
+        n = sum_big_number(n, d);
     }
-    if (comparison_big_number(math_big_number(n, '*', b), a))
-        n = math_big_number(n, '-', d);
+    if (comparison_big_number(multiplication_big_number(n, b), a))
+        n = deduction_big_number(n, d);
     return n;
 }
+
+//vector <int> oper_minus (vector <int> a, vector <int> b)
+//{
+//    vector <int> c(1), d(1), n(1), g(1, 1);
+//    while (comparison_big_number(a, multiplication_big_number(sum_big_number(n, g), b)))
+//    {
+//        ;
+//    }
+//}
+
 vector <int> math_big_number(vector <int> a, char sign, vector <int> b)
 {
     vector <int> c;
@@ -202,20 +212,29 @@ int main()
     vector <int> c;
     string d;
     char f;
+    unsigned __int64 old;
     cout << "первое число ";
     cin >> d;
     b = str_in_big_number(d);
     cout << "знак который вы хотите применить: + - * / sqrt ";
     cin >> d;
-    if (d == "sqrt") a = sqrt_root(b);
+    if (d == "sqrt")
+    {
+        a = sqrt_root(b); 
+        old = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+    }
     else
     {
         f = d[0];
         cout << "второе число ";
         cin >> d;
         c = str_in_big_number(d);
+        old = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
         a = math_big_number(b, f, c);
     }
+    for (int i = 0; i < a.size(); i++)
+        cout << a[i] << endl;
     print_number(a);
-    a.
+    unsigned __int64 now = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+    return now - old;
 }
